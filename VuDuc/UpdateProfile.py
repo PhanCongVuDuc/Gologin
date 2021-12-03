@@ -12,7 +12,7 @@ import xlrd
 API_URL = 'https://api.gologin.com'
 
 token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
-profile_id= "61a8ee1a656d196bcf36d18d"
+profile_id= "61a9d4c3b3e3b34d99607fb9"
 
 headers = {
 	'Authorization': 'Bearer ' + token,
@@ -22,22 +22,6 @@ options={
   "token": token,
 }
 
-
-def getRandomFingerprint(options):
-  os_type = options.get('os', 'lin')
-  return json.loads(requests.get(API_URL + '/browser/fingerprint?os=' + os_type, headers=headers).content.decode('utf-8'))
-fingerprint=getRandomFingerprint(options)
-
-# gl1 = GoLogin({
-# 	"token": token,
-# 	"profile_id": profile_id,
-# 	})
-# profile1=gl1.getProfile()
-
-# Opening JSON file
-f = open('Gologin\gologin\VuDuc\Profile.json')
-profile = json.load(f)
-
 # Give the location of the file
 loc = ("Gologin\gologin\VuDuc\InforProfile.xlsx")
  
@@ -45,10 +29,14 @@ loc = ("Gologin\gologin\VuDuc\InforProfile.xlsx")
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 
-for x in range(4,5):
+
+a=requests.get(API_URL + '/browser/' , headers=headers)
+AllProfile=json.loads(a.content.decode('utf-8'))
+
+for x in range(5):
   index=x
   name=sheet.cell_value(index, 6)
-  startUrl='https://iphey.com/'
+  startUrl='https://share-w.in/qdhfqf-41983'
   host=sheet.cell_value(index, 0)
   port=sheet.cell_value(index, 1)
   username=sheet.cell_value(index, 3)
@@ -63,4 +51,11 @@ for x in range(4,5):
     "password": password
   }
   profile['startUrl']=startUrl
-  requests.post(API_URL + '/browser/', headers=headers, json=profile)
+
+gl = GoLogin({
+	"token": token,
+	"profile_id": profile_id,
+	})
+profile1=gl.getProfile()
+profile1['startUrl']="https://poocoin.app/tokens/0xca1acab14e85f30996ac83c64ff93ded7586977ch"
+requests.put(API_URL + '/browser/' + profile_id, headers=headers, json=profile1)
