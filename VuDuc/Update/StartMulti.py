@@ -8,18 +8,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import infor
 from selenium.webdriver.common.by import By
+import os
+from multiprocessing import Pool
 
 links=['https://share-w.in/f5huty-42970','https://share-w.in/3f8n19-42969']
 
-
-start=input('start: ')
-end=input('end: ')  
-print(str(start)+"-->"+str(end))
-
-for x in range(int(start),int(end)):
-	index=x
+def scrap(profile):
+	index=profile['index']
 	try:
-		profile_id=infor.sheet.cell_value(index, 9)
+		profile_id=profile['profile_id']
 		gmail=infor.sheet.cell_value(index, 11)
 		name=infor.sheet.cell_value(index, 12)
 		telegramtext=infor.sheet.cell_value(index, 13)
@@ -29,7 +26,7 @@ for x in range(int(start),int(end)):
 			"token": infor.token,
 			"profile_id": profile_id,
 			"local": False,
-			"credentials_enable_service": False,
+	        'port': profile['port'],
 			}
 		gl = GoLogin(option)
 
@@ -59,10 +56,46 @@ for x in range(int(start),int(end)):
 			bep20=driver.find_element_by_xpath('//*[@id="sw_text_input_12_1"]')
 			bep20.clear()
 			bep20.send_keys(addresstext)
-
+		
 		# driver.close()
 		# time.sleep(3)
 		# gl.stop()
 		print(index+1)
 	except:
 		print(str(index+1)+" An exception occurred")
+
+if __name__ == '__main__':
+
+	start=input('start1: ')
+	end=input('end1: ')  
+	print(str(start)+"-->"+str(end))
+
+	profiles = []
+	port1=3500
+	for x in range(int(start)-1,int(end)):
+		index=x
+		error=infor.sheet.cell_value(index, 0)
+		if error!=31 or error!=1:
+			try:
+				profile_id=infor.sheet.cell_value(index, 9)
+				information=dict()
+				information['profile_id']=profile_id
+				information['index']=index
+				information['port']=port1
+				profiles.append(information)
+
+				port1=port1+1
+				print('Add: '+str(index+1))
+			except:
+				print(str(index+1)+"- An exception occurred")
+	with Pool(3) as p:
+		p.map(scrap, profiles)
+
+
+	# if platform == "win32":
+	# 	os.system('taskkill /im chrome.exe /f')
+	# 	os.system('taskkill /im chromedriver.exe /f')
+	# else:
+	# 	os.system('killall -9 chrome')
+	# 	os.system('killall -9 chromedriver')
+

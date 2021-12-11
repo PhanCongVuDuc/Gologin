@@ -25,7 +25,7 @@ def scrap(profile):
 	debugger_address = gl.start()
 	chrome_options = Options()
 	chrome_options.add_experimental_option("debuggerAddress", debugger_address)
-	driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
+	driver = webdriver.Chrome(executable_path=r'chromedriver.exe', options=chrome_options)
 	driver.get("http://www.python.org")
 	print('ready', profile['profile_id'], driver.title)
 	time.sleep(10)
@@ -35,7 +35,7 @@ def scrap(profile):
 if __name__ == '__main__':    
 
 	profiles = [
-		{'profile_id': '61ab00d4de9fef1804e0fc04', 'port': 3500}, 
+		{'profile_id': '61ab00d4de9fef1804e0fc04', 'port': 3500,'a':100}, 
 		]
 
 
