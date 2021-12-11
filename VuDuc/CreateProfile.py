@@ -28,27 +28,22 @@ def getRandomFingerprint(options):
   return json.loads(requests.get(API_URL + '/browser/fingerprint?os=' + os_type, headers=headers).content.decode('utf-8'))
 fingerprint=getRandomFingerprint(options)
 
-# gl1 = GoLogin({
-# 	"token": token,
-# 	"profile_id": profile_id,
-# 	})
-# profile1=gl1.getProfile()
-
 # Opening JSON file
-f = open('Gologin\gologin\VuDuc\Profile.json')
+f = open('Profile.json')
 profile = json.load(f)
 
 # Give the location of the file
-loc = ("Gologin\gologin\VuDuc\InforProfile.xlsx")
+loc = ("InforProfile.xlsx")
  
 # To open Workbook
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 
-for x in range(4,5):
+for x in range(0,500):
   index=x
+  print(index+1)
   name=sheet.cell_value(index, 6)
-  startUrl='https://iphey.com/'
+  startUrl='https://share-w.in/78s48l-41983'
   host=sheet.cell_value(index, 0)
   port=sheet.cell_value(index, 1)
   username=sheet.cell_value(index, 3)

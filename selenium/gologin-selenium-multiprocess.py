@@ -8,7 +8,7 @@ from gologin import GoLogin
 
 def scrap(profile):
 	gl = GoLogin({
-	        'token': 'yU0token',
+	        'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs',
 	        'profile_id': profile['profile_id'],
 	        'port': profile['port'],
 		})
@@ -32,9 +32,9 @@ def scrap(profile):
 	gl.stop()
 
 profiles = [
-	{'profile_id': 'profile_id_1', 'port': 3500}, 
-	{'profile_id': 'profile_id_2', 'port': 3501},
-	{'profile_id': 'profile_id_3', 'port': 3502},
+	{'profile_id': '61ab00d4de9fef1804e0fc04', 'port': 3500}, 
+	{'profile_id': '61ab00d52717fdd5ea210a05', 'port': 3501},
+	{'profile_id': '61ab00e14b540f97cf731409', 'port': 3502},
 	]
 
 
