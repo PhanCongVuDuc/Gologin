@@ -22,11 +22,11 @@ options={
 }
 
 # Opening JSON file
-f = open('C:\\Users\\Admin\\Desktop\\Python\\Gologin\\gologin\\VuDuc\\Profile.json')
+f = open('C:\\Users\\Admin\\Desktop\\VuDuc\\Gologin\\gologin\\VuDuc\\Profile.json')
 profile = json.load(f)
 
 # Give the location of the file
-loc = ("C:\\Users\\Admin\\Desktop\\Python\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx")
+loc = ("C:\Users\\Admin\\Desktop\\VuDuc\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx")
  
 # To open Workbook
 wb = xlrd.open_workbook(loc)
