@@ -36,15 +36,15 @@ loc = ("C:\\Users\\Admin\\Desktop\\Python\\Gologin\\gologin\\VuDuc\\InforProfile
  
 # To open Workbook
 wb = xlrd.open_workbook(loc)
-sheet = wb.sheet_by_index(0)
+sheet = wb.sheet_by_name('Proxy')
 
-for x in range(4441,4442):
+for x in range(730,750):
   index=x
   print(index+1)
-  name=sheet.cell_value(index, 6)
-  startUrl='https://share-w.in/78s48l-41983'
-  host=sheet.cell_value(index, 0)
-  port=sheet.cell_value(index, 1)
+  name=sheet.cell_value(index, 8)
+  startUrl=''
+  host=sheet.cell_value(index, 1)
+  port=sheet.cell_value(index, 2)
   username=sheet.cell_value(index, 3)
   password=sheet.cell_value(index, 4)
 

@@ -11,7 +11,7 @@ for x in range(start,end):
   if error==31 or error==1:
     try:
       sock=infor.sheet.cell_value(index, 0)
-      id=infor.sheet.cell_value(index, 7)
+      id=infor.sheet.cell_value(index, 9)
       infor.delete(id)
       print(index+1)
     except:

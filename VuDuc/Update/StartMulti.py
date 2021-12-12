@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 import os
 from multiprocessing import Pool
 
-links=['https://share-w.in/f5huty-42970','https://share-w.in/3f8n19-42969']
+links=['https://sweepwidget.com/view/43260-yinp7cmo/qc31ud-43260']
 
 def scrap(profile):
 	index=profile['index']
@@ -44,23 +44,33 @@ def scrap(profile):
 
 		for x in range(len(links)):
 			driver.switch_to.window(driver.window_handles[x+1])
+			time.sleep(1)
 			fullname=driver.find_element_by_xpath('//*[@id="sw_login_fields"]/div[1]/input')
 			fullname.clear()
 			fullname.send_keys(name)
 			emailaddress=driver.find_element_by_xpath('//*[@id="sw_login_fields"]/div[2]/input')
 			emailaddress.clear()
 			emailaddress.send_keys(gmail)
-			telegram=driver.find_element_by_xpath('//*[@id="sw_text_input_11_1"]')
-			telegram.clear()
-			telegram.send_keys(telegramtext)
-			bep20=driver.find_element_by_xpath('//*[@id="sw_text_input_12_1"]')
+			# telegram=driver.find_element_by_xpath('//*[@id="sw_text_input_11_1"]')
+			# telegram.clear()
+			# telegram.send_keys(telegramtext)
+			bep20=driver.find_element_by_xpath('//*[@id="sw_text_input_17_1"]')
 			bep20.clear()
 			bep20.send_keys(addresstext)
+
+			time.sleep(3)
+			driver.find_element_by_xpath('//*[@id="sw_login_button"]').click()
+		print(str(index+1)+'done')
 		
-		# driver.close()
-		# time.sleep(3)
+		time.sleep(2)
+		driver.close()
+		driver.switch_to.window(driver.window_handles[0])
+		driver.close()
+
+		print(str(index+1)+'close')
+		time.sleep(2)
 		# gl.stop()
-		print(index+1)
+		# print(index+1)
 	except:
 		print(str(index+1)+" An exception occurred")
 
@@ -75,7 +85,7 @@ if __name__ == '__main__':
 	for x in range(int(start)-1,int(end)):
 		index=x
 		error=infor.sheet.cell_value(index, 0)
-		if error!=31 or error!=1:
+		if error!=31 and error!=1:
 			try:
 				profile_id=infor.sheet.cell_value(index, 9)
 				information=dict()
@@ -88,14 +98,6 @@ if __name__ == '__main__':
 				print('Add: '+str(index+1))
 			except:
 				print(str(index+1)+"- An exception occurred")
-	with Pool(3) as p:
+	with Pool(5) as p:
 		p.map(scrap, profiles)
-
-
-	# if platform == "win32":
-	# 	os.system('taskkill /im chrome.exe /f')
-	# 	os.system('taskkill /im chromedriver.exe /f')
-	# else:
-	# 	os.system('killall -9 chrome')
-	# 	os.system('killall -9 chromedriver')
 

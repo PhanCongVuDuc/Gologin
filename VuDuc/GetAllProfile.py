@@ -11,7 +11,7 @@ import openpyxl
 
 API_URL = 'https://api.gologin.com'
 
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
+token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI1ZmFjMjQyZTZiZTgyZDk0Y2JkNjEifQ.WX8JjT9JBR2SivmLuoLOG7k2QhRqeM6rEz-8bgJv7_k"
 
 headers = {
 	'Authorization': 'Bearer ' + token,
@@ -19,7 +19,8 @@ headers = {
 }
 
 
-data=json.loads(requests.get(API_URL + '/browser/' , headers=headers).content.decode('utf-8'))
+a=requests.get(API_URL + '/browser' , headers=headers)
+data=json.loads(a.content.decode('utf-8'))
 
 
 filename='C:\\Users\\Admin\\Desktop\\Python\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx'

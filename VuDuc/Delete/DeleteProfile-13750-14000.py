@@ -40,7 +40,7 @@ for x in range(13750,14000):
   index=x
   print(index+1)
   try:
-    delete(sheet.cell_value(index, 7))
+    delete(sheet.cell_value(index, 9))
   except:
     print("An exception occurred")
 
