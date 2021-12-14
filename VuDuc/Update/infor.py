@@ -10,7 +10,7 @@ linkref='https://share-w.in/f5huty-42970'
 
 API_URL = 'https://api.gologin.com'
 
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
+token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI2ZGYwOWE3ZjAwM2QzY2ZjMTI2NzgiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI2ZGYxMzRjOGU4ODE4YzZkMDc1ZjcifQ.mgIbN1DPG6GTuM3Yybd0G4WPla94JZwLAi-0pa6Jox8"
 profile_id= "61a8ee1a656d196bcf36d18d"
 
 headers = {
@@ -26,7 +26,7 @@ f = open('C:\\Users\\Admin\\Desktop\\VuDuc\\Gologin\\gologin\\VuDuc\\Profile.jso
 profile = json.load(f)
 
 # Give the location of the file
-loc = ("C:\Users\\Admin\\Desktop\\VuDuc\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx")
+loc = ("C:\\Users\\Admin\\Desktop\\VuDuc\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx")
  
 # To open Workbook
 wb = xlrd.open_workbook(loc)

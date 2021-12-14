@@ -6,7 +6,7 @@ from gologin import GoLogin
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import infor
+import information
 from selenium.webdriver.common.by import By
 
 links=['https://share-w.in/f5huty-42970','https://share-w.in/3f8n19-42969']
@@ -19,14 +19,14 @@ print(str(start)+"-->"+str(end))
 for x in range(int(start),int(end)):
 	index=x
 	try:
-		profile_id=infor.sheet.cell_value(index, 9)
-		gmail=infor.sheet.cell_value(index, 11)
-		name=infor.sheet.cell_value(index, 12)
-		telegramtext=infor.sheet.cell_value(index, 13)
-		addresstext=infor.sheet.cell_value(index, 14)
+		profile_id=information.sheet.cell_value(index, 9)
+		gmail=information.sheet.cell_value(index, 11)
+		name=information.sheet.cell_value(index, 12)
+		telegramtext=information.sheet.cell_value(index, 13)
+		addresstext=information.sheet.cell_value(index, 14)
 
 		option={
-			"token": infor.token,
+			"token": information.token,
 			"profile_id": profile_id,
 			"local": False,
 			"credentials_enable_service": False,

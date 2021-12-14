@@ -8,3 +8,6 @@ yarn.lock
 .idea
 *_.js
 *_.py
+selenium/chromedriver
+selenium/chromedriver.exe
+selenium/mac/chromedriver

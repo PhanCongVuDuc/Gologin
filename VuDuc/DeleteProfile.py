@@ -1,66 +1,29 @@
-import time
-from sys import platform
-from typing import no_type_check_decorator
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from gologin import GoLogin
+import information
 import requests
-import json
-import csv
 import xlrd
-import threading
-import time
 
-API_URL = 'https://api.gologin.com'
-
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
-profile_id= "61a8ee1a656d196bcf36d18d"
-
-headers = {
-	'Authorization': 'Bearer ' + token,
-	'User-Agent': 'Selenium-API'
-}
-options={
-  "token": token,
-}
+start=int(input('start: '))
+end=int(input('end: '))
+print(str(start)+"-->"+str(end))
 
 # Give the location of the file
-loc = ("InforProfile.xlsx")
- 
-# To open Workbook
+loc = (information.my_InforProfile_path)
 wb = xlrd.open_workbook(loc)
-sheet = wb.sheet_by_index(0)
+sheet_proxy = wb.sheet_by_name('Proxy')
 
-
-# AllProfile=json.loads(requests.get(API_URL + '/browser/' , headers=headers).content.decode('utf-8'))
-
-def delete(id):
+def delete(API_URL,headers,id):
   requests.delete(API_URL + '/browser/' + id, headers=headers)
 
-# Opening JSON file
-f = open('Profile.json')
-profile = json.load(f)
-
-# Give the location of the file
-loc = ("InforProfile.xlsx")
- 
-# To open Workbook
-wb = xlrd.open_workbook(loc)
-sheet = wb.sheet_by_index(0)
-
-
-
-
-for x in range(0,750):
+for x in range(start-1,end):
   index=x
-  print(index+1)
-
   try:
-    delete(sheet.cell_value(index, 7))
+    id=sheet_proxy.cell_value(index, 9)
+    status=requests.delete(information.API_URL + '/browser/' + id, headers=information.get_headers(x+1))
+    print(str(index+1)+"-Trạng thái: "+ str(status.status_code))
   except:
-    print("An exception occurred")
+    print(str(index+1)+"- Delete lỗi")
+    
 
-  # thread1=threading.Thread(target=update,args=(x['id'],))
-  # thread1.start()
-  # thread1.join()
+  
+
 

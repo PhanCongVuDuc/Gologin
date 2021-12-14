@@ -9,7 +9,7 @@ import csv
 import xlrd
 import threading
 import time
-import infor
+import information
 
 start=input('start: ')
 end=input('end: ')  
@@ -18,7 +18,7 @@ print(str(start)+"-->"+str(end))
 for x in range(int(start),int(end)):
   index=x
   try:
-    infor.update(infor.sheet.cell_value(index, 9))
+    information.update(information.sheet.cell_value(index, 9))
     print(index+1)
   except:
     print(str(index)+" An exception occurred")

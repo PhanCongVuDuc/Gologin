@@ -1,4 +1,4 @@
-import infor
+import information
 
 start=int(input('start: '))
 end=int(input('end: '))
@@ -7,12 +7,12 @@ print(str(start)+"-->"+str(end))
 for x in range(start,end):
   index=x
 
-  error=infor.sheet.cell_value(index, 8)
+  error=information.sheet.cell_value(index, 8)
   if error==31 or error==1:
     try:
-      sock=infor.sheet.cell_value(index, 0)
-      id=infor.sheet.cell_value(index, 9)
-      infor.delete(id)
+      sock=information.sheet.cell_value(index, 0)
+      id=information.sheet.cell_value(index, 9)
+      information.delete(id)
       print(index+1)
     except:
       print(str(index+1)+"- An exception occurred")

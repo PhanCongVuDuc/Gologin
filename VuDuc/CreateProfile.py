@@ -1,51 +1,30 @@
-import time
-from sys import platform
-from typing import no_type_check_decorator
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from gologin import GoLogin
 import requests
 import json
-import csv
 import xlrd
-
-API_URL = 'https://api.gologin.com'
-
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
-profile_id= "61a8ee1a656d196bcf36d18d"
-
-headers = {
-	'Authorization': 'Bearer ' + token,
-	'User-Agent': 'Selenium-API'
-}
-options={
-  "token": token,
-}
+import information
 
 
-def getRandomFingerprint(options):
-  os_type = options.get('os', 'lin')
-  return json.loads(requests.get(API_URL + '/browser/fingerprint?os=' + os_type, headers=headers).content.decode('utf-8'))
-fingerprint=getRandomFingerprint(options)
+start=input('start: ')
+end=input('end: ')  
+print(str(start)+"-->"+str(end))
 
 # Opening JSON file
-f = open('Profile.json')
+f = open(information.my_Profile_path)
 profile = json.load(f)
 
 # Give the location of the file
-loc = ("InforProfile.xlsx")
- 
-# To open Workbook
+loc = (information.my_InforProfile_path)
 wb = xlrd.open_workbook(loc)
-sheet = wb.sheet_by_index(0)
+sheet = wb.sheet_by_name('Proxy')
 
-for x in range(0,500):
+
+
+for x in range(int(start)-1,int(end)):
   index=x
-  print(index+1)
-  name=sheet.cell_value(index, 6)
-  startUrl='https://share-w.in/78s48l-41983'
-  host=sheet.cell_value(index, 0)
-  port=sheet.cell_value(index, 1)
+  name=sheet.cell_value(index, 8)
+  startUrl=''
+  host=sheet.cell_value(index, 1)
+  port=sheet.cell_value(index, 2)
   username=sheet.cell_value(index, 3)
   password=sheet.cell_value(index, 4)
 
@@ -58,4 +37,5 @@ for x in range(0,500):
     "password": password
   }
   profile['startUrl']=startUrl
-  requests.post(API_URL + '/browser/', headers=headers, json=profile)
+  status=requests.post(information.API_URL + '/browser/', headers=information.get_headers(x+1), json=profile)
+  print(str(index+1)+"-Trạng thái: "+ str(status.status_code))

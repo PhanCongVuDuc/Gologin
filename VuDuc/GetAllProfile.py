@@ -7,44 +7,45 @@ import requests
 import json
 import csv
 import openpyxl
+import information
 
 
-API_URL = 'https://api.gologin.com'
 
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI1ZmFjMjQyZTZiZTgyZDk0Y2JkNjEifQ.WX8JjT9JBR2SivmLuoLOG7k2QhRqeM6rEz-8bgJv7_k"
+InputDoanProxyBatDau=int(input('Đoạn Proxy bắt đầu: '))
+InputDoanProxyKetThuc=int(input('Đoạn Proxy kết thúc: '))  
+print(str(InputDoanProxyBatDau)+"-->"+str(InputDoanProxyKetThuc))
 
-headers = {
-	'Authorization': 'Bearer ' + token,
-	'User-Agent': 'Selenium-API'
-}
+wb=openpyxl.load_workbook(information.my_InforProfile_path)
+sheet_data=wb['Data']
 
+for InputDoanProxy in range(InputDoanProxyBatDau,InputDoanProxyKetThuc+1):
 
-a=requests.get(API_URL + '/browser' , headers=headers)
-data=json.loads(a.content.decode('utf-8'))
+	# InputDoanProxy=int(input('Đoạn Proxy: '))
 
+	print("Bạn đang chạy đoạn proxy: "+str(InputDoanProxy))
 
-filename='C:\\Users\\Admin\\Desktop\\Python\\Gologin\\gologin\\VuDuc\\InforProfile.xlsx'
+	doanproxy=information.get_doan_proxy(InputDoanProxy)
 
-wb=openpyxl.load_workbook(filename)
-sheet1=wb['Data']
-sheet1.delete_cols(1,2)
+	range='A{}:B{}'.format(doanproxy[0],doanproxy[1])
+	for row in sheet_data[range]:
+		for cell in row:
+			cell.value = None
 
-row=1
-for x in data:
-	proxy=x['proxy']
-	name=x['id']
+	a=requests.get(information.API_URL + '/browser' , headers=information.headers[InputDoanProxy-1])
+	data=json.loads(a.content.decode('utf-8'))
 
-	host=proxy['host']
-	sheet1.cell(row,1).value=host
-	sheet1.cell(row,2).value=name
+	row=doanproxy[0]
+	for x in data:
+		proxy=x['proxy']
+		name=x['id']
 
-	row=row+11
+		host=proxy['host']
+		sheet_data.cell(row,1).value=host
+		sheet_data.cell(row,2).value=name
 
+		row=row+1
+	print("Bạn chạy xong đoạn proxy: "+str(InputDoanProxy))
+	
 
 wb.close()
-wb.save(filename)
-
-
-# with open('GetAllProfile.json', 'w') as f:
-# 	json.dump(b, f)
-# 	print('Done Json')
+wb.save(information.my_InforProfile_path)
