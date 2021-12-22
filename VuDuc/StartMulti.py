@@ -13,24 +13,24 @@ from multiprocessing import Pool
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.action_chains import ActionChains
 
-links=['https://sweepwidget.com/view/43260-yinp7cmo/oib8y1-43260']
+from pyvirtualdisplay import Display
+links=['https://sweepwidget.com/view/45082-qita67bw/l4zqqq-45082']
 
-# Give the location of the file
-loc = (information.my_InforProfile_path)
-wb = xlrd.open_workbook(loc)
-sheet_proxy = wb.sheet_by_name('Proxy')
+
+# display = Display(visible=2, size=(1920, 1080))
+# display.start()
 
 def scrap(profile):
 	index=profile['index']
 	try:
 		profile_id=profile['profile_id']
-		gmail=sheet_proxy.cell_value(index, 11)
-		name=sheet_proxy.cell_value(index, 12)
-		telegramtext=sheet_proxy.cell_value(index, 13)
-		addresstext=sheet_proxy.cell_value(index, 14)
+		gmail=profile['gmail']
+		name=profile['name']
+		telegramtext=profile['telegramtext']
+		addresstext=profile['addresstext']
 
 		option={
-			"token": information.get_tokens(index),
+			"token": information.get_tokens(index+1),
 			"profile_id": profile_id,
 			"local": False,
 	        'port': profile['port'],
@@ -57,17 +57,18 @@ def scrap(profile):
 			fullname=driver.find_element_by_xpath('//*[@id="sw_login_fields"]/div[1]/input')
 			fullname.clear()
 			fullname.send_keys(name)
+			time.sleep(1)
 			emailaddress=driver.find_element_by_xpath('//*[@id="sw_login_fields"]/div[2]/input')
 			emailaddress.clear()
 			emailaddress.send_keys(gmail)
-			# telegram=driver.find_element_by_xpath('//*[@id="sw_text_input_11_1"]')
+			# telegram=driver.find_element_by_xpath('//*[@id="sw_login_fields"]/div[2]/input')
 			# telegram.clear()
 			# telegram.send_keys(telegramtext)
-			bep20=driver.find_element_by_xpath('//*[@id="sw_text_input_17_1"]')
-			bep20.clear()
-			bep20.send_keys(addresstext)
+			# bep20=driver.find_element_by_xpath('//*[@id="sw_text_input_17_1"]')
+			# bep20.clear()
+			# bep20.send_keys(addresstext)
 
-			time.sleep(3)
+			time.sleep(5)
 			driver.find_element_by_xpath('//*[@id="sw_login_button"]').click()
 
 		### doi khi co ket qua ####
@@ -95,6 +96,11 @@ if __name__ == '__main__':
 	end=input('end: ')  
 	print(str(start)+"-->"+str(end))
 
+	# Give the location of the file
+	loc = (information.my_InforProfile_path)
+	wb = xlrd.open_workbook(loc)
+	sheet_proxy = wb.sheet_by_name('Proxy')
+
 	profiles = []
 	port1=3500
 	for x in range(int(start)-1,int(end)):
@@ -107,12 +113,17 @@ if __name__ == '__main__':
 				information['profile_id']=profile_id
 				information['index']=index
 				information['port']=port1
+				information['name']=sheet_proxy.cell_value(index, 12)
+				information['gmail']=sheet_proxy.cell_value(index, 11)
+				information['telegramtext']=sheet_proxy.cell_value(index, 13)
+				information['addresstext']=sheet_proxy.cell_value(index, 14)
+
 				profiles.append(information)
 
 				port1=port1+1
 				print('Add: '+str(index+1))
 			except:
 				print(str(index+1)+"- Lỗi không lấy được Profile")
-	with Pool(15) as p:
+	with Pool(10) as p:
 		p.map(scrap, profiles)
 

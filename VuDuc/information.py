@@ -6,19 +6,18 @@ import requests
 import json
 import xlrd
 import os
-import openpyxl
 
 
 
-token1= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI4MGZlN2U5MjM1NzY4OTYxZDU3MWYiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI4MTAwOTZiNmU0MDEwMGM2YzYyODIifQ.dgdaSJXNwVeCfz2sZklMxjwBP_5JDc8KDKqr-vkr5XA"
-token2= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI4MjNiNzkzNzM0MzkwZDQxMzdkMDgiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI4MjNjN2YzYWQ4Zjk0NWJhNjYxMmQifQ.vk8Go09OekhU5DfBPgOhtQANjnA0zhLEhIFiF1P1V9M"
-token3= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI4MjBiNjA0ODAxMDA3NWFjNTUwMzkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI4MjExMjkzNzM0MzgxY2YxMzdhZjkifQ.KCGT1zVG-GS1egHQ_naaf9WDp0dH_J-UjGhZoK01DVA"
-token4= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI1ZmVkNGJkNjZmZjFkNzI1NTE3MGMiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI2Njg4NjkwYjAzNzMwMGQ3YTFjMDUifQ.K_L4dD5FDwAmtM1C8Xpt3JwC2xFQxpGvfc6F-DaJYwo"
-token5= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI2NjlhZWQwNzk2NDViYTUzODlkYjYiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI2NjljMTg4NDNjMTFjNGY5Y2UwNDQifQ.NqxdwKve7gnx9u27CdGZAyTS5UsMeRWvlFhzpYHUvU4"
-token6= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI2NmE0Yjc2NWVkODMwNjhlZjQ3OTciLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI2NmE1Yjc2NWVkODVlNGFlZjQ3YjIifQ.e627V-jgriXKT_IIwmRsDOw5pDmCClKlUaQg-ORiLow"
-token7= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI4MjA2NDkzNzM0MzYwNzQxMzdhN2MiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI4MjA3MWI4Y2I3Y2FiMWFhOTQwMzMifQ.evcuIY9UvoawHDLS4bCTlkGZOySDVZ2QqlBg1JrtuCs"
-token8= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI2ZGYwOWE3ZjAwM2QzY2ZjMTI2NzgiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI2ZGYxMzRjOGU4ODE4YzZkMDc1ZjcifQ.mgIbN1DPG6GTuM3Yybd0G4WPla94JZwLAi-0pa6Jox8"
-token9= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWI4M2E5NWI4Y2I3YzZmMzFhOTU2YzkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWI4M2FhMmI4Y2I3YzdlNzJhOTU2ZGMifQ.ikgX4tkBdkpzPJ-7_56bVIuE3KWQJ-nTySngHq34s04"
+token1= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGJmZWRkMjVjN2E2ZWExZGI5OTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGMwYWRkMjVjNzNlMzkxZGI5YTcifQ.LjbBN8Vb3ZdpHkVxcruthJOa1l1UZOo1cVK_4wJ9J3Y"
+token2= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGNkMWMwYjBkYjIzYjAxMGUzMDQiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGNlMmFjMDE3NjdjYmFiNGQ4Y2QifQ.lJDMrWkF9aXkaUr7FncR4f86O3JM6fICStfL2i5s4Lk"
+token3= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGQ4YjhmZWQ0NzRkM2JhMjdkNWUiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGQ5OGUzNjczZDk2NDQ4OWVmNjEifQ.FdxjzObZsXJjZ5T2505H4SqE8waqalJlPn-AjZp5uQM"
+token4= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGRmOGEyODBmMzFiNTg3M2M3NzYiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGUwNDQ2Y2MxZjMxMTBlNzI5MWIifQ.vqO_6a1z27-6aYcOKgw-Sgg9VQi-QPSzCbKgxKPLXE8"
+token5= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGVkMTUzNTA3ZTJlNjZlYmQzZjciLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGVkZWNhNzVkYjI5ZDVjYjI2NzcifQ.qXxqSb5XHFfNZUcxwEPKGTk8pSbXdPO_7wkWxnjJjBQ"
+token6= ""
+token7= ""
+token8= ""
+token9= ""
 token10= ""
 token11= ""
 token12= ""
@@ -45,6 +44,8 @@ def get_tokens(i):
     index=9
   elif 9001<=i and i<=10000:
     index=10
+  elif 10001<=i and i<=11000:
+    index=11
   return tokens[index-1]
 
 
@@ -84,6 +85,8 @@ def get_headers(i):
     index=9
   elif 9001<=i and i<=10000:
     index=10
+  elif 10001<=i and i<=11000:
+    index=11
   return headers[index-1]
 
 # Opening JSON file
@@ -99,7 +102,7 @@ GetSheetProxy = InforProfile.sheet_by_name('Proxy')
 
 
 
-sheet=['1-1000','1001-2000','2001-3000','3001-4000','4001-5000','5001-6000','6001-7000','7001-8000','8001-9000','9001-10000']
+sheet=['1-1000','1001-2000','2001-3000','3001-4000','4001-5000','5001-6000','6001-7000','7001-8000','8001-9000','9001-10000','10001-11000']
 
 
 def get_doan_proxy(index):
@@ -124,6 +127,8 @@ def get_doan_proxy(index):
     result=[8001,9000]
   elif index==10:
     result=[9001,10000]
+  elif index==11:
+    result=[10001,11000]
 
   return result
 
@@ -139,6 +144,8 @@ def get_sheet_with_stt(i):
           8:'7001-8000',
           9:'8001-9000',
           10:'9001-10000',
+          11:'10001-11000',
+
         }
   index=0
   if 1<=i and i<=1000:
@@ -161,6 +168,8 @@ def get_sheet_with_stt(i):
     index=9
   elif 9001<=i and i<=10000:
     index=10
+  elif 10001<=i and i<=11000:
+    index=11
   return InforProfile.sheet_by_name(switcher.get(index,"Invalid"))
 
 

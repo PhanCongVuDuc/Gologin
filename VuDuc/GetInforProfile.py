@@ -9,8 +9,8 @@ import csv
 
 API_URL = 'https://api.gologin.com'
 
-token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTc4ZDEyMDM0MWY2OGY1YzlmYjQzYTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWE3N2FjZWU4MjhjOTRmNTA0NzhhMGUifQ.jvQPpHdtwXptJQN5NKySEVpB0JTp8vRmkWR7Z9uUkBs"
-profile_id= "61ab00ac5ed8dd56952f1032"
+token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWMzOGJmZWRkMjVjN2E2ZWExZGI5OTkiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWMzOGMwYWRkMjVjNzNlMzkxZGI5YTcifQ.LjbBN8Vb3ZdpHkVxcruthJOa1l1UZOo1cVK_4wJ9J3Y"
+profile_id= "61c3905de3673d12ca89f33e"
 headers = {
 	'Authorization': 'Bearer ' + token,
 	'User-Agent': 'Selenium-API'
@@ -21,7 +21,7 @@ headers = {
 # 	})
 # profile=gl.getProfile()
 # print(profile)
-a=requests.get(API_URL + '/browser/' + profile_id, headers=headers)
+a=requests.get(API_URL + '/browser/v2?page=1' , headers=headers)
 profile=json.loads(a.content.decode('utf-8'))
 print(profile)
 with open('Result1.json', 'w') as f:

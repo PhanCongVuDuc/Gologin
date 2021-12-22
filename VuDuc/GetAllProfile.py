@@ -18,6 +18,11 @@ print(str(InputDoanProxyBatDau)+"-->"+str(InputDoanProxyKetThuc))
 wb=openpyxl.load_workbook(information.my_InforProfile_path)
 sheet_data=wb['Data']
 
+# rangetemp=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+rangetemp=range(1,35)
+
+
+
 for InputDoanProxy in range(InputDoanProxyBatDau,InputDoanProxyKetThuc+1):
 
 	# InputDoanProxy=int(input('Đoạn Proxy: '))
@@ -31,8 +36,16 @@ for InputDoanProxy in range(InputDoanProxyBatDau,InputDoanProxyKetThuc+1):
 		for cell in row:
 			cell.value = None
 
-	a=requests.get(information.API_URL + '/browser' , headers=information.headers[InputDoanProxy-1])
-	data=json.loads(a.content.decode('utf-8'))
+	header=information.headers[InputDoanProxy-1]
+	
+	data=list()
+	for i in rangetemp:
+		request=information.API_URL + '/browser/v2?page='+ str(i)
+		print(request)
+		a=requests.get(request, headers=header)
+		dataTemp=json.loads(a.content.decode('utf-8'))
+		dataTemp1=dataTemp['profiles']
+		data.extend(dataTemp1)
 
 	row=doanproxy[0]
 	for x in data:
