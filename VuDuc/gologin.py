@@ -26,7 +26,7 @@ class GoLogin(object):
 
         home = str(pathlib.Path.home())
         self.executablePath = options.get('executablePath', os.path.join(home, '.gologin/browser/orbita-browser/chrome'))
-        print('executablePath', self.executablePath)
+        print('executable')
         if self.extra_params:
             print('extra_params', self.extra_params)
         self.setProfileId(options.get('profile_id')) 
