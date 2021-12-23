@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.action_chains import ActionChains
 
 from pyvirtualdisplay import Display
-links=['https://sweepwidget.com/view/45082-qita67bw/84fhi8-45082']
+links=['https://sweepwidget.com/view/45082-qita67bw/l4zqqq-45082']
 
 
 # display = Display(visible=2, size=(1920, 1080))
@@ -124,6 +124,6 @@ if __name__ == '__main__':
 				print('Add: '+str(index+1))
 			except:
 				print(str(index+1)+"- Lỗi không lấy được Profile")
-	with Pool(10) as p:
+	with Pool(15) as p:
 		p.map(scrap, profiles)
 
